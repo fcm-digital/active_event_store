@@ -71,7 +71,7 @@ module ActiveEventStore
           actual_event.metadata.delete(:correlation_id)
 
           (event_class.identifier == actual_event.event_type) &&
-            (attributes.nil? || attributes_match?({metadata: actual_event.metadata.to_h}.merge!(actual_event.data))))
+            (attributes.nil? || attributes_match?({metadata: actual_event.metadata.to_h}.merge!(actual_event.data)))
         end
 
       @matching_count = @matching_events.size
