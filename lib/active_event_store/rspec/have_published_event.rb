@@ -66,8 +66,12 @@ module ActiveEventStore
 
       @matching_events, @unmatching_events =
         in_block_events.partition do |actual_event|
+          actual_event.metadata.delete(:valid_at)
+          actual_event.metadata.delete(:timestamp)
+          actual_event.metadata.delete(:correlation_id)
+
           (event_class.identifier == actual_event.event_type) &&
-            (attributes.nil? || attributes_match?(actual_event))
+            (attributes.nil? || attributes_match?({metadata: actual_event.metadata.to_h}.merge!(actual_event.data))))
         end
 
       @matching_count = @matching_events.size
