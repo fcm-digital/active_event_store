@@ -86,7 +86,7 @@ module ActiveEventStore
     private
 
     def attributes_match?(event)
-      RSpec::Matchers::BuiltIn::HaveAttributes.new(attributes).matches?(event)
+      RSpec::Matchers::BuiltIn::Match.new(attributes).matches?(event)
     end
 
     def set_expected_number(relativity, count)
